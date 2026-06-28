@@ -26,7 +26,7 @@ div.dataTables_wrapper div.dataTables_paginate {
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
     cursor: not-allowed !important;
-    background: #ccc5c3 !important;
+    background: #ffffff !important;
     color: #666 !important;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button{
@@ -71,7 +71,7 @@ div.dataTables_wrapper div.dataTables_paginate {
 }
 
 thead, tbody, tfoot, tr, td, th {
-    border-color: #fff !important;
+    border-color: #dcf0fe !important;
     /*var(--bs-theme-light5-color)*/
   }
   .table-striped>tbody>tr:nth-of-type(odd)>* {
@@ -84,15 +84,18 @@ thead, tbody, tfoot, tr, td, th {
   .btn-seconday{
     background: var(--bs-theme-light4-color) !important;
     color:  var(--bs-theme-color) !important;
+        border-color: #8592a3;
   }
   .btn-seconday:hover{
     background:  var(--bs-theme-color) !important;
     color: #ffffff !important;
+    transform: translateY(-1px) !important;
   }
   .dt-top-btn {
     position: absolute;
     top: 90px;
     right: 28px;
+        margin-top: 1rem !important;
   }
   table.dataTable thead th, table.dataTable thead td {
       font-size: 15px !important;

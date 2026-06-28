@@ -5,7 +5,7 @@
 
 .menu .app-brand.demo {
   height: 64px;
-  margin-top: 12px;
+  margin-top: 0px;
 }
 
 .app-brand-logo.demo svg {
@@ -437,6 +437,13 @@
         margin-top: 10px;
         padding: 0px;
                 padding-left: 14px;
+    }
+    .new_sitemap_items .color-legend-block {
+        float: left;
+        margin-top: 8px;
+    }
+    .menu_overlay .sitemap-blocks .sitemap-items .span3{
+          margin-top: 12px;
     }
 }
 @media (min-width: 992px) {

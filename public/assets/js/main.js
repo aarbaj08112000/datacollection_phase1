@@ -30,32 +30,25 @@ $(document).ajaxStop(function() {
 }
 const app = {
   init: function(){
-
-
-      $(document).on("click",'.layout-menu-toggle',function(){
-          if($(this).find('i').hasClass("bx-chevron-right")){
-              $(this).find('i').removeClass("bx-chevron-right").addClass("bx-chevron-left")
-              $('html').addClass("layout-compact").removeClass("layout-menu-collapsed").removeClass("layout-menu-hover")
-          }else{
-              $('html').removeClass("layout-compact").addClass("layout-menu-collapsed")
-              $(this).find('i').removeClass("bx-chevron-left").addClass("bx-chevron-right")
-              $(this).addClass("hide")
-          }
-      })
-      $("#layout-menu").on("mouseover",function(){
-        if(!$('html').hasClass("layout-compact")){
+    this.toggleGrid();
+    $(".dropdownUser").on("click",function(){
+      if($(this).hasClass("inactive")){
+        $(this).removeClass("inactive").addClass("active");
+      }else{
+        $(this).removeClass("active").addClass("inactive");
+      }
+      $(".dropdownUserNav").toggleClass("open-user-info-drop")
+    })
+   
+        $("#close-vertical-btn").on("click",function(e){
+          $('html').removeClass("layout-menu-hover")
+            // $(this).find('i').removeClass("bx-chevron-right").addClass("bx-chevron-left")
+        })
+        $('#toggle-horizontal-menu-bar').on('click',function(){
           $('html').addClass("layout-menu-hover")
-
-        }
-          // $(this).find('i').removeClass("bx-chevron-right").addClass("bx-chevron-left")
-      })
-      $('#layout-menu').on('mouseleave',function(){
-        if(!$('html').hasClass("layout-compact")){
-            $('html').removeClass("layout-menu-hover")
-        }
-        
-        // $(this).find('i').removeClass("bx-chevron-left").addClass("bx-chevron-right")
-      });
+          
+          // $(this).find('i').removeClass("bx-chevron-left").addClass("bx-chevron-right")
+        });
       $(".menu-item").on("click",function(){
         
          if(!$(this).hasClass("open-menu")){
@@ -122,7 +115,7 @@ const app = {
       })
   },
   allowNumber:function(){
-    $('.onlyNumericInput').on('keypress', function(event) {
+    $(document).on('keypress','.onlyNumericInput', function(event) {
       var charCode = (event.which) ? event.which : event.keyCode;
 
       var value = $(this).val();
@@ -137,7 +130,7 @@ const app = {
       console.log(this.value.replace(/[^0-9.]/g, ''));
         
     });
-    $('.onlyNumericInput').on('input', function(event) {
+    $(document).on('input','.onlyNumericInput', function(event) {
       var charCode = (event.which) ? event.which : event.keyCode;
 
       var value = $(this).val();
@@ -194,11 +187,12 @@ const app = {
           }
         });
         // this.initiateDataTableRes(".table.scrollable");
-        $("#dropdownUser").on("click",function(){
-            $("#dropdownUserNav").toggleClass("show-nav")
-        })
+        // $(".dropdownUser").on("click",function(){
+        //     $(this).parents(".dropdown").find(".dropdownUserNav").addClass("open-user-info-drop")
+        // })
     }
     this.initiateDataTableRes(".table.scrollable.scrollable-seachable");
+
   }, 
   initiateDataTableRes: function(calss_val =""){
     // console.log(calss_val)
@@ -220,5 +214,27 @@ const app = {
             table_data.search(this.value).draw();
         });
       }
-  
+  ,
+  toggleGrid: function(){
+    $(".toggle-grid-btn li").on("click",function(){
+      var type = $(this).attr("data-value");
+      var parent_ele = $(this).parents(".toggle-grid-btn");
+      
+      if(!$(this).hasClass("active")){
+        $(this).addClass("active");
+        if(type == "Table"){
+            $(parent_ele).find(".grid").removeClass("active");
+            $(".grid-block").addClass("hide-grid-table");
+            $(".dataTables_scroll").removeClass("hide-grid-table");
+            $("body").removeClass("grid-layout");
+        }else{
+            $(parent_ele).find(".table").removeClass("active");
+            $(".dataTables_scroll").addClass("hide-grid-table");
+            $(".grid-block").removeClass("hide-grid-table");
+            $("body").addClass("grid-layout");
+        }
+      }
+      
+    })
+  }
 }

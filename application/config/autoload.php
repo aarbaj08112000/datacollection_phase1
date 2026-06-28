@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Crud', 'Common_admin_model','Unit','CustomerPart','SupplierParts','InhouseParts','GlobalConfig');
+$autoload['model'] = array();

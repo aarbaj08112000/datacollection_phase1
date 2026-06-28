@@ -55,95 +55,33 @@ function defaultDateFormat($date = "") {
     // Return false if none of the formats match
     return $date;
 }
+function defaultDateInsertFormat($date = "") {
+    // Define an array of possible input date formats
+    $formats = [
+        'd/m/Y',
+        'd/Y/m',  // Format like 12-2024-02
+        'Y/m/d',
+        'Y/d/m',
+        'd-m-Y',  // Format like 12-02-2024
+        'd-Y-m',  // Format like 12-2024-02
+        'Y-m-d',
+        'Y-d-m'  // Format like 2024-12-02
+    ];
+    
+    foreach ($formats as $format) {
+        $dateTime = DateTime::createFromFormat($format, $date);
+        if ($dateTime) {
+            // Return the date in the desired format
+            return $dateTime->format('d-m-Y');
+        }
+    }
 
-function digitalSignature($file_path = '',$location = '',$signer = '',$certpwd ='',$certid='',$customerPrefix='',$digital_signature_url = ''){
-	// checksum = sha256 (APIKEY + timestamp)
-	// uuid = generate unique in your system
-	// signloc = location for signature
-	// signannotation = approved ny name  
-	// uploadfile = upload pdf
-	// certid = certificate id (Shared by Truecopy once it’s configured on your domain
-	// certpwd = corresponding certificate password
-	// timestamp = The time at the instant of signing expressed as: DDMMYYYYHH:mm:ss NOTE: The timestamp should be in sync with IST
-	// signer = identifier of the signer account that is being used to sign. Shared by Truecopy
-
-	// Endpoint URL
-	$url = $digital_signature_url;
-	// Parameters to be sent in the request
-
-	// $file_path = "/var/www/html/extra_work/true_copy/salary_slip.pdf";
-	$absolute_path = realpath($file_path);
-
-	$file = new CURLFile($absolute_path, mime_content_type($absolute_path), basename($absolute_path));
-
-	/*
-	Production System details:
-	$api_key = "NN3W33MCOH2YNAG3CC6J1RF5NZINU3G1";
-	Domian = arominfotech.truecopy.in
-	URL: https: //arominfotech.truecopy.in/api/tsm/v3/signpdfdoc
-	certid:  sunita_kisan_gaikwad - AMEYA
-	certpwd: Tc%9pxL7cXBiRLkWL38raYgKsUXTOA==
-	Signer: helpdesk+arominfotechapiuser@truecopy.com
-	*/
-
-	$api_key = "NN3W33MCOH2YNAG3CC6J1RF5NZINU3G1";
-	
-	/*
-	Test System details:
-	$api_key = "72ACC113118AA458"; //Test System
-	Domian = usgwstage.truecopy.in
-	URL: https://usgwstage.truecopy.in/api/tsm/v3/signpdfdoc
-	certid:  john_doe_test_2_gcp
-	certpwd: Tc%9pxL7qYeGXW/KjN7GpkofKy22PQ==
-	Signer: helpdesk+pocarominfotechapiuser@truecopy.com
-	*/
-	$time = (int) date("i");
-	//$current_timestamp = date("dmYH").":".($time).date(":s"); -- this is for local
-	$current_timestamp = date("dmYH") . ":" . ($time + 30) . date(":s"); //-- this is for production
-	// pr($current_timestamp,1);
-	$checksum = hash('sha256', $api_key.$current_timestamp);
-	$uuid = "AROM".mt_rand(1000000000, 9999999999);
-	$fields = array(
-	    'certid' => $certid,
-	    'certpwd' => $certpwd,
-	    'uuid' => $uuid,
-	    'timestamp' => $current_timestamp,
-	    'checksum' => $checksum,
-	    'signer' => $signer,
-	    'uploadfile' => $file,
-	    'signloc' => $location,
-	    'signannotation' => 'Approved',
-	    'hidetick' => 'true',
-	    'signsize' => ''
-	);
-	// Initialize cURL session
-	$ch = curl_init();
-
-	// Set the cURL options
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-	// Execute the cURL session
-	$response = curl_exec($ch);
-
-	// Check for errors
-	if(curl_errno($ch)) {
-	    echo 'Error while doing digital signature : ' . curl_error($ch);
-	    exit();
-	}
-
-	// Close cURL session
-	curl_close($ch);
-	// Print the response from the server
-	//echo $response;	
-	//exit();
-	$myfile = fopen($file_path, "w") or die("Unable to open file!");
-	fwrite($myfile, $response);
-	fclose($myfile);
-	// exit();
+    $date = $date == "" || $date == null ? display_no_character() : display_no_character();
+    
+    // Return false if none of the formats match
+    return $date;
 }
+
 function formateFormDate($date =''){
 	$date=date_create($date);
 	$date = date_format($date,"Y-m-d");
@@ -174,9 +112,10 @@ function dbFormDate($date ='',$format = ""){
 }
 
 function checkGroupAccess($page_url = "",$type = "",$redirect ="Yes"){
+
 	$CI = &get_instance();
-	$CI->load->model('GlobalConfigModel');
-	$acces = $CI->GlobalConfigModel->check_group_access($page_url,$type);
+	$CI->load->model('Group_model');
+	$acces = $CI->Group_model->check_group_access($page_url,$type);
 	if(!$acces && $redirect == "Yes"){
 		$previous_page = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'No previous page';
 		$forbidden_page = base_url('forbidden_page');
@@ -242,6 +181,26 @@ function numberToWords(float $number)
 
         return $wholeNumberInWords . $fractionInWords;
     }
+function NoDataFoundMessage($module_name =""){
+    $module_message = [
+        "user" => "user"
+    ];
+
+    $message = $module_message[$module_name];
+
+    $html = '<div class="p-3 no-data-found-block">
+                <img class="p-2" src="http://localhost/extra_work/HRMS/public/assets/images/images/no_data_found_new.png" height="150" width="150">
+                <br> No '.$message.' data found..!
+            </div>';
+
+    return $html;
+}
+
+function createFolder($folderPath = ""){
+    if (!is_dir($folderPath) && $folderPath != "") {
+        mkdir($folderPath, 0777, true);
+    }
+}
 
 
 ?>

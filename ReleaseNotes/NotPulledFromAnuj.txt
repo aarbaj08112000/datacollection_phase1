@@ -1,7 +1,0 @@
-tulsi header added - Dated 6th April
-
-application/config/database.php
-application/views/erp_users.php
-application/views/header.php
-application/views/view_job_card_details.php
-application/views/view_job_card_details_released.php

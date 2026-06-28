@@ -104,14 +104,14 @@ const page = {
 	            var msg = responseObject.messages;
 	            var success = responseObject.success;
 	            if (success == 1) {
-	              toastr.success(msg);
+                toaster("success",msg);
 	              $(this).parents(".modal").modal("hide")
 	              setTimeout(function(){
 	                window.location.reload();
 	              },1000);
 
 	            } else {
-	              toastr.error(msg);
+                toaster("error",msg);
 	            }
 	          },
 	          error: function (error) {

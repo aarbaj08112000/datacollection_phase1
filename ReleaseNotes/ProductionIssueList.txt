@@ -1,1 +1,0 @@
-Sales invoice date is different than what is there on list page vs pdf page --> In pdf we take the part date 

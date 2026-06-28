@@ -41,20 +41,20 @@
   }
 }
 .layout-wrapper:not(.layout-horizontal) .bg-menu-theme .menu-inner > .menu-item.active:before {
-  content: "";
+  /*content: "";
   position: absolute;
   right: 0;
   width: 0.25rem;
   height: 2.5rem;
-  border-radius: 0.375rem 0 0 0.375rem;
+  border-radius: 0.375rem 0 0 0.375rem;*/
 }
 .bg-menu-theme .menu-sub > .menu-item > .menu-link:before {
-  content: "";
+  /*content: "";
   position: absolute;
   left: 1.4375rem;
   width: 0.375rem;
   height: 0.375rem;
-  border-radius: 50%;
+  border-radius: 50%;*/
 }
 .layout-horizontal .bg-menu-theme .menu-sub > .menu-item > .menu-link:before {
   left: 1.3rem;
@@ -558,10 +558,10 @@ html[dir=rtl] .border-primary {
 }
 
 a {
-  color: #ea1c31;
+  color: var(--bs-theme-color);;
 }
 a:hover {
-  color: #e32832;
+  color: var(--bs-theme-light5-color);
 }
 
 .fill-primary {

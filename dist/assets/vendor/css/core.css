@@ -5216,7 +5216,7 @@ textarea.form-control-lg {
 }
 
 .toast:not(.show) {
-    display: none
+    display: block
 }
 
 .toast-container {

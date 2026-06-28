@@ -1,4 +1,0 @@
-Performance issues:
-
-- http://localhost/bsperp/TEST-checkedin/inhouse_parts_view
-- Part Price

@@ -1,3 +1,0 @@
-
-RElationships SQL:
-	ALTER TABLE `challan` ADD CONSTRAINT `FK_SupplierID` FOREIGN KEY (`supplier_id`) REFERENCES `supplier`(`id`) ON DELETE RESTRICT ON UPDATE NO ACTION;

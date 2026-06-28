@@ -3,7 +3,9 @@
 </div>
 <div class="layout-overlay layout-menu-toggle"></div>
 </div>
+<%if !(strpos($smarty.server.PATH_INFO, "/sitemap") !== false) %>
 <%include 'quick_menu.tpl'%>
+<%/if%>
 <link rel="stylesheet" href="<%$base_url%>public/assets/css/demo.css" />
 <style>
 </style>
@@ -55,7 +57,7 @@ i.options.fadeIn&&t.fadeIn("fast"),i.options.onReady&&i.options.onReady(t)}}};t.
 $(document).ready(function(){
 		
            setTimeout(function(){
-           		$('.sitemap-items').AwesomeGrid({
+           		$('.sitemap1-items').AwesomeGrid({
             rowSpacing  : 20,    
             colSpacing  : 20,  
             initSpacing : 0,     
@@ -74,6 +76,10 @@ $(document).ready(function(){
            
 	});
 </script>
+ <script src="public/js/toaster/custom_toaster.js"></script>
+ <!-- SweetAlert 2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- <script src="<%$base_url%>public/assets/vendor/libs/popper/popper.js"></script> -->
 <script src="<%$base_url%>public/assets/js/main.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
